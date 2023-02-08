@@ -489,7 +489,7 @@ export const ActionsMessages = () => {
   const VerificaInputSendMessage = (input) => {
     console.log(input);
     if (input) {
-      imgSendMessage.src = "../sources/img/sendMessage.png";
+      imgSendMessage.src = "./sources/img/sendMessage.png";
       console.log("estoy entrando");
     } else {
       imgSendMessage.src = "./sources/img/mic.svg";
