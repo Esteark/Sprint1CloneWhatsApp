@@ -10,10 +10,10 @@ import {
 import {
   loadPhotoUser,
   MediaQueryMessage,
-  ObtainMessages,
   ActionsMessages,
   ActionsContacts,
   OpenSesion,
+  ChargeMessages,
 } from "./UiDomMainSec.js";
 
 //Eventos del formulario de login
@@ -27,7 +27,7 @@ export const eventsMainSec = async () => {
   ActionsContacts();
   ActionsMessages();
   loadPhotoUser(sesionUser.url);
-  await ObtainMessages();
+  await ChargeMessages();
 };
 
 const verificaSesion = async () => {

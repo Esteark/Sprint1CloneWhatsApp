@@ -109,21 +109,20 @@ export const contactAgregadoSuccess = async () => {
   showAnimation(ModalContacts__CardContact);
 };
 
-export const ObtainMessages = async () => {
-  arraymessages = [];
-  let mensajesUser = await getMessages();
+export const ChargeMessages = async () => {
+  let messages = await ObtainMessages();
+  renderMessages(messages);
+};
 
-  arraymessages = mensajesUser.filter(
+export const ObtainMessages = async () => {
+  let mensajesUser = await getMessages();
+  let arraymessages = mensajesUser.filter(
     (user) =>
       user.celContact1 === parseInt(sesionUser.cel) ||
       user.celContact2 === parseInt(sesionUser.cel)
   );
   console.log(arraymessages);
-  if (arraymessages.length != 0) {
-    renderMessages(arraymessages);
-  } else {
-    renderMessages([]);
-  }
+  return arraymessages;
 };
 
 const fillArrayChats = async (id) => {
@@ -137,16 +136,6 @@ const ObtenerHora = () => {
   let tempus = luxon.DateTime.now();
   let send = tempus.c.hour + ":" + tempus.c.minute;
   return send;
-};
-
-const arrayChatsFilter = (id) => {
-  let arrayfilter = arrayChats.filter((item) => item.idconversation === id);
-  return arrayfilter;
-};
-
-const arrayMessagesFilter = (id) => {
-  let arrayfilter = arraymessages.filter((item) => item.id === id);
-  return arrayfilter;
 };
 
 const showSecChat = () => {
@@ -194,80 +183,71 @@ export const ActionsContacts = async () => {
 
     if (contact) {
       let userHaveWhat = await renderInfoUserChat(contact, nomUserChat);
-      console.log(userHaveWhat);
+
       if (userHaveWhat != true) {
         notifcationToastify(
           "El usuario con el que te quieres comunicar actualmente no tiene una cuenta de whatsApp activa"
         );
         closeSecChat();
       } else {
-        await ObtainMessages();
-        setTimeout(async () => {
-          let consersationfind = false;
-          let celular = parseInt(contact);
-          console.log(arraymessages);
-          arraymessages.forEach((item) => {
-            if (
-              item.celContact1 === celular &&
-              item.celContact2 === parseInt(sesionUser.cel)
-            ) {
-              idMensaje = item.id;
-              consersationfind = true;
-            } else if (
-              item.celContact2 === celular &&
-              item.celContact1 === parseInt(sesionUser.cel)
-            ) {
-              idMensaje = item.id;
-              consersationfind = true;
-            }
-          });
-          console.log(consersationfind);
-
-          if (consersationfind) {
-            setTimeout(() => {
-              let chats = arrayChatsFilter(idMensaje);
-              renderburblesChats(chats);
-            }, 1000);
-          } else {
-            const newcon = {
-              celContact1: parseInt(sesionUser.cel),
-              nomContact1: sesionUser.nomUser,
-              celContact2: celular,
-              nomContact2: nomUserChat,
-            };
-            let arrayresponse = await newConversation(newcon);
-            const [id, estado] = arrayresponse;
-            if (estado >= 200 && estado <= 299) {
-              idMensaje = id;
-              notifcationToastify("Nueva conversación creada");
-              const nuevo = {
-                idconversation: idMensaje,
-                sendBy: parseInt(sesionUser.cel),
-                dateSend: luxon.DateTime.now().toLocaleString(),
-                hourSend: ObtenerHora(),
-                mensajeBody: "Hola",
-                visto: false,
-              };
-              let response = await newMessageChat(nuevo);
-              if (!(response >= 200 && response <= 299)) {
-                notifcationToastify("El mensaje no pudo ser enviado");
-              } else {
-                await ObtainMessages();
-                let arrayfilter;
-                setTimeout(() => {
-                  arrayfilter = arrayChatsFilter(idMensaje);
-                }, 1000);
-                setTimeout(() => {
-                  renderburblesChats(arrayfilter);
-                }, 1000);
-              }
-            } else {
-              notifcationToastify(
-                "Ocurrió un error al intentar enviar el mensaje"
-              );
-            }
+        let arraymessages = await ObtainMessages();
+        let consersationfind = false;
+        let celular = parseInt(contact);
+        arraymessages.forEach((item) => {
+          if (
+            item.celContact1 === celular &&
+            item.celContact2 === parseInt(sesionUser.cel)
+          ) {
+            idMensaje = item.id;
+            consersationfind = true;
+          } else if (
+            item.celContact2 === celular &&
+            item.celContact1 === parseInt(sesionUser.cel)
+          ) {
+            idMensaje = item.id;
+            consersationfind = true;
           }
-        }, 1000);
+        });
+        console.log(consersationfind);
+
+        if (consersationfind) {
+          let chats = await fillArrayChats(idMensaje);
+          renderburblesChats(chats);
+        } else {
+          const newcon = {
+            celContact1: parseInt(sesionUser.cel),
+            nomContact1: sesionUser.nomUser,
+            celContact2: celular,
+            nomContact2: nomUserChat,
+          };
+          let arrayresponse = await newConversation(newcon);
+          const [id, estado] = arrayresponse;
+          if (estado >= 200 && estado <= 299) {
+            idMensaje = id;
+            notifcationToastify("Nueva conversación creada");
+            const nuevo = {
+              idconversation: idMensaje,
+              sendBy: parseInt(sesionUser.cel),
+              dateSend: luxon.DateTime.now().toLocaleString(),
+              hourSend: ObtenerHora(),
+              mensajeBody: "Hola",
+              visto: false,
+            };
+            let response = await newMessageChat(nuevo);
+            if (!(response >= 200 && response <= 299)) {
+              notifcationToastify("El mensaje no pudo ser enviado");
+            } else {
+              let arrayfilter = await fillArrayChats(idMensaje);
+
+              renderburblesChats(arrayfilter);
+            }
+          } else {
+            notifcationToastify(
+              "Ocurrió un error al intentar enviar el mensaje"
+            );
+          }
+        }
+
         showSecChat();
       }
     }
@@ -449,12 +429,11 @@ export const ActionsMessages = () => {
     let idChat = e.target.getAttribute("data-idMessage");
     nomUserChat = e.target.getAttribute("data-nameUser");
 
-    console.log([idMensaje, idChat]);
     if (idMensaje && idChat) {
       showSecChat();
       idMensaje = parseInt(idMensaje);
       idChat = parseInt(idChat);
-      console.log([idMensaje, idChat]);
+
       let message = await fillArrayChats(idMensaje);
       console.log(message);
       let view = false;
@@ -474,14 +453,18 @@ export const ActionsMessages = () => {
             "ocurrio un error al intentar procesar la solicitud"
           );
         }
-
-        await ObtainMessages();
       }
+
+      setTimeout(async () => {
+        await ChargeMessages();
+      }, 1000);
 
       renderburblesChats(message);
 
-      let infoUserchat = arrayMessagesFilter(idMensaje);
-      console.log(infoUserchat);
+      let arrayMensajes = await ObtainMessages();
+
+      let infoUserchat = arrayMensajes.filter((item) => item.id === idMensaje);
+
       let celInfouser =
         infoUserchat[0].celContact1 != sesionUser.cel
           ? infoUserchat[0].celContact1
@@ -492,10 +475,8 @@ export const ActionsMessages = () => {
     }
   });
   const VerificaInputSendMessage = (input) => {
-    console.log(input);
     if (input) {
       imgSendMessage.src = "./sources/img/sendMessage.png";
-      console.log("estoy entrando");
     } else {
       imgSendMessage.src = "./sources/img/mic.svg";
     }
@@ -516,7 +497,7 @@ export const ActionsMessages = () => {
     } else {
       txtinputSendMessage.value = "";
       VerificaInputSendMessage(txtinputSendMessage.value);
-      await ObtainMessages();
+      await ChargeMessages();
       let arraymensajes = await fillArrayChats(idMensaje);
       renderburblesChats(arraymensajes);
     }
@@ -541,9 +522,9 @@ export const ActionsMessages = () => {
   });
 
   //funcion para abrir el modal de el resumen de los chats
-  btnMenuSummary.addEventListener("click", () => {
+  btnMenuSummary.addEventListener("click", async () => {
     showModalSummary(SecSummary__Chats);
-    let array = arrayChatsFilter(idMensaje);
+    let array = await fillArrayChats(idMensaje);
     h3ConversationWith.textContent = "Mensajes con " + nomUserChat;
     setTimeout(() => {
       renderSummaryChats(array);
@@ -553,8 +534,8 @@ export const ActionsMessages = () => {
     hideModalSummary(SecSummary__Chats);
   });
 
-  txtfilterModalSummary.addEventListener("input", (e) => {
-    let array = arrayChatsFilter(idMensaje);
+  txtfilterModalSummary.addEventListener("input", async (e) => {
+    let array = fillArrayChats(idMensaje);
     let arrayfilter = array.filter((mensaje) =>
       mensaje.mensajeBody.toLowerCase().includes(e.target.value.toLowerCase())
     );
@@ -627,7 +608,7 @@ const ObtainNameUserChat = (
 
 export const renderMessages = (array) => {
   secMessages.innerHTML = "";
-  console.log(array.length);
+
   if (array.length != 0) {
     array.forEach(async (mensaje) => {
       let celInfo =
@@ -784,7 +765,7 @@ const renderburblesChats = (array) => {
 
 const renderInfoUserChat = async (cel, nomUserChat) => {
   let infouser = await getInfoUser(cel);
-  console.log(infouser);
+
   if (infouser.length != 0) {
     infouser.forEach((item) => {
       const imagenUserChat = document.getElementById("imagenUserChat");
