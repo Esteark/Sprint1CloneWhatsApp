@@ -21,17 +21,18 @@ eventFormLogin();
 newAccount();
 eventFormRegister();
 rechargeInfoLocal();
+export const eventsMainSec = async () => {
+  logsucces();
+  OpenSesion();
+  ActionsContacts();
+  ActionsMessages();
+  loadPhotoUser(sesionUser.url);
+  await ObtainMessages();
+};
 
 const verificaSesion = async () => {
-  //Object.entries(sesionUser).length != 0
   if (Object.entries(sesionUser).length != 0) {
-    logsucces();
-    OpenSesion();
-    MediaQueryMessage();
-    ActionsContacts();
-    ActionsMessages();
-    loadPhotoUser(sesionUser.url);
-    await ObtainMessages();
+    eventsMainSec();
   } else {
     closeSesion();
   }
@@ -39,4 +40,5 @@ const verificaSesion = async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   verificaSesion();
+  MediaQueryMessage();
 });

@@ -1,4 +1,5 @@
 import { showAnimation, HideElement, hideAnimation } from "./animations.js";
+import { eventsMainSec } from "./main.js";
 import { notifcationToastify, sweetModal } from "./notifications.js";
 import { getInfoUsers, LogSuccesUser } from "./services.js";
 import {
@@ -106,11 +107,7 @@ export const eventFormLogin = () => {
       if (sesion) {
         let login = await LogSuccesUser(iduser, { status: true });
         if (login >= 200 && login <= 299) {
-          console.log("entre");
-          logsucces();
-          OpenSesion();
-          loadPhotoUser(sesionUser.url);
-          ObtainMessages();
+          await eventsMainSec();
         } else {
           notifcationToastify("Hubo un error al intentar iniciar sesión");
         }
