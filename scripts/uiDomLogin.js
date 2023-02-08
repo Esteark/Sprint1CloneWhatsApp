@@ -2,13 +2,7 @@ import { showAnimation, HideElement, hideAnimation } from "./animations.js";
 import { eventsMainSec } from "./main.js";
 import { notifcationToastify, sweetModal } from "./notifications.js";
 import { getInfoUsers, LogSuccesUser } from "./services.js";
-import {
-  closeSecChat,
-  loadPhotoUser,
-  ObtainMessages,
-  OpenSesion,
-  SecMain,
-} from "./UiDomMainSec.js";
+import { closeSecChat, SecMain } from "./UiDomMainSec.js";
 import { camposValidate, passValidate } from "./validators.js";
 
 export let sesionUser;

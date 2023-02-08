@@ -120,17 +120,22 @@ export const ObtainMessages = async () => {
       user.celContact1 === parseInt(sesionUser.cel) ||
       user.celContact2 === parseInt(sesionUser.cel)
   );
-  console.log(arraymessages);
 
-  arraymessages.forEach(async (mensaje, index) => {
-    let chat = await getChats(mensaje.id);
-    chat.forEach((item) => {
-      arrayChats.push(item);
-    });
-    if (index === arraymessages.length - 1) {
-      renderMessages(arraymessages);
+  setTimeout(() => {
+    if (arraymessages.length != 0) {
+      arraymessages.forEach(async (mensaje, index) => {
+        let chat = await getChats(mensaje.id);
+        chat.forEach((item) => {
+          arrayChats.push(item);
+        });
+        if (index === arraymessages.length - 1) {
+          renderMessages(arraymessages);
+        }
+      });
+    } else {
+      renderMessages([]);
     }
-  });
+  }, 500);
 };
 
 const ObtenerHora = () => {
@@ -193,7 +198,7 @@ export const ActionsContacts = async () => {
     nomUserChat = e.target.getAttribute("data-name");
 
     if (contact) {
-      let userHaveWhat = await renderInfoUserChat(contact);
+      let userHaveWhat = await renderInfoUserChat(contact, nomUserChat);
       console.log(userHaveWhat);
       if (userHaveWhat != true) {
         notifcationToastify(
@@ -227,7 +232,7 @@ export const ActionsContacts = async () => {
             setTimeout(() => {
               let chats = arrayChatsFilter(idMensaje);
               renderburblesChats(chats);
-            }, 100);
+            }, 1000);
           } else {
             const newcon = {
               celContact1: parseInt(sesionUser.cel),
@@ -253,10 +258,13 @@ export const ActionsContacts = async () => {
                 notifcationToastify("El mensaje no pudo ser enviado");
               } else {
                 await ObtainMessages();
+                let arrayfilter;
                 setTimeout(() => {
-                  let arrayfilter = arrayChatsFilter(idMensaje);
+                  arrayfilter = arrayChatsFilter(idMensaje);
+                }, 1000);
+                setTimeout(() => {
                   renderburblesChats(arrayfilter);
-                }, 200);
+                }, 1000);
               }
             } else {
               notifcationToastify(
@@ -264,7 +272,7 @@ export const ActionsContacts = async () => {
               );
             }
           }
-        }, 200);
+        }, 1000);
         showSecChat();
       }
     }
@@ -471,9 +479,13 @@ export const ActionsMessages = () => {
             "ocurrio un error al intentar procesar la solicitud"
           );
         }
-        await ObtainMessages();
+        setTimeout(async () => {
+          await ObtainMessages();
+        }, 1000);
       }
-      renderburblesChats(message);
+      setTimeout(() => {
+        renderburblesChats(message);
+      }, 1000);
 
       let infoUserchat = arrayMessagesFilter(idMensaje);
       console.log(infoUserchat);
@@ -483,7 +495,7 @@ export const ActionsMessages = () => {
           : infoUserchat[0].celContact2 != sesionUser.cel
           ? infoUserchat[0].celContact2
           : sesionUser.cel;
-      await renderInfoUserChat(celInfouser);
+      await renderInfoUserChat(celInfouser, nomUserChat);
     }
   });
   const VerificaInputSendMessage = (input) => {
@@ -627,6 +639,7 @@ const ObtainNameUserChat = (
 
 export const renderMessages = (array) => {
   secMessages.innerHTML = "";
+  console.log(array.length);
   if (array.length != 0) {
     array.forEach(async (mensaje) => {
       let celInfo =
@@ -698,7 +711,12 @@ export const renderMessages = (array) => {
         mensaje.celContact2,
         mensaje.nomContact1,
         mensaje.nomContact2
-      )}">${UserInfo.nomUser}</h3>
+      )}">${ObtainNameUserChat(
+        mensaje.celContact1,
+        mensaje.celContact2,
+        mensaje.nomContact1,
+        mensaje.nomContact2
+      )}</h3>
                   <h4 data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
       }" data-nameUser="${ObtainNameUserChat(
@@ -776,7 +794,7 @@ const renderburblesChats = (array) => {
   });
 };
 
-const renderInfoUserChat = async (cel) => {
+const renderInfoUserChat = async (cel, nomUserChat) => {
   let infouser = await getInfoUser(cel);
   console.log(infouser);
   if (infouser.length != 0) {
@@ -784,7 +802,7 @@ const renderInfoUserChat = async (cel) => {
       const imagenUserChat = document.getElementById("imagenUserChat");
       const InfoChat__texts = document.querySelector(".InfoChat__texts");
       imagenUserChat.src = item.url ? item.url : "./sources/img/usuario.png";
-      InfoChat__texts.querySelector("h3").textContent = item.nomUser;
+      InfoChat__texts.querySelector("h3").textContent = nomUserChat;
       InfoChat__texts.querySelector("p").textContent = item.status
         ? "En linea"
         : "última vez el " + item.dateConection;
