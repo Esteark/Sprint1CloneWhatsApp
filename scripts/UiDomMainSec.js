@@ -84,7 +84,6 @@ const h3ConversationWith = document.getElementById("h3ConversationWith");
 
 export let arraycontacts;
 let arraymessages;
-let arrayChats;
 let idMensaje;
 let nomUserChat;
 
@@ -111,7 +110,6 @@ export const contactAgregadoSuccess = async () => {
 };
 
 export const ObtainMessages = async () => {
-  arrayChats = [];
   arraymessages = [];
   let mensajesUser = await getMessages();
 
@@ -120,22 +118,19 @@ export const ObtainMessages = async () => {
       user.celContact1 === parseInt(sesionUser.cel) ||
       user.celContact2 === parseInt(sesionUser.cel)
   );
+  console.log(arraymessages);
+  if (arraymessages.length != 0) {
+    renderMessages(arraymessages);
+  } else {
+    renderMessages([]);
+  }
+};
 
-  setTimeout(() => {
-    if (arraymessages.length != 0) {
-      arraymessages.forEach(async (mensaje, index) => {
-        let chat = await getChats(mensaje.id);
-        chat.forEach((item) => {
-          arrayChats.push(item);
-        });
-        if (index === arraymessages.length - 1) {
-          renderMessages(arraymessages);
-        }
-      });
-    } else {
-      renderMessages([]);
-    }
-  }, 500);
+const fillArrayChats = async (id) => {
+  let arrayChats = [];
+  let chat = await getChats(id);
+  arrayChats.push(...chat);
+  return arrayChats;
 };
 
 const ObtenerHora = () => {
@@ -460,7 +455,7 @@ export const ActionsMessages = () => {
       idMensaje = parseInt(idMensaje);
       idChat = parseInt(idChat);
       console.log([idMensaje, idChat]);
-      let message = arrayChatsFilter(idMensaje);
+      let message = await fillArrayChats(idMensaje);
       console.log(message);
       let view = false;
       message.forEach((item) => {
@@ -479,13 +474,11 @@ export const ActionsMessages = () => {
             "ocurrio un error al intentar procesar la solicitud"
           );
         }
-        setTimeout(async () => {
-          await ObtainMessages();
-        }, 1000);
+
+        await ObtainMessages();
       }
-      setTimeout(() => {
-        renderburblesChats(message);
-      }, 1000);
+
+      renderburblesChats(message);
 
       let infoUserchat = arrayMessagesFilter(idMensaje);
       console.log(infoUserchat);
@@ -524,13 +517,8 @@ export const ActionsMessages = () => {
       txtinputSendMessage.value = "";
       VerificaInputSendMessage(txtinputSendMessage.value);
       await ObtainMessages();
-      let arraymensajes;
-      setTimeout(() => {
-        arraymensajes = arrayChatsFilter(idMensaje);
-      }, 1000);
-      setTimeout(() => {
-        renderburblesChats(arraymensajes);
-      }, 1000);
+      let arraymensajes = await fillArrayChats(idMensaje);
+      renderburblesChats(arraymensajes);
     }
   };
 
@@ -651,7 +639,7 @@ export const renderMessages = (array) => {
 
       let UserInfo = await obtainInfoUserchat(celInfo);
 
-      let chats = arrayChatsFilter(mensaje.id);
+      let chats = await fillArrayChats(mensaje.id);
 
       let Message = obtainInfoMessage(chats);
       secMessages.innerHTML += `
