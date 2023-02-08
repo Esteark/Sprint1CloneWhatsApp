@@ -1,0 +1,30 @@
+//Estilos genelales
+/*formateo de estilos del navegador*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+/*Tamaño general del body*/
+
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: $fontMain;
+  background-color: $gris;
+}
+
+/* Quitamos las felchas de arriba y abajo en los input number  */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/*Clase para ocultar elementos*/
+.hidden {
+  display: none !important;
+}

@@ -1,0 +1,211 @@
+/*Estilos para los loaders*/
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: $blanco;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader__article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .loader__figure {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto;
+      .loader__img {
+        width: 100%;
+      }
+    }
+    h2 {
+      color: $fontcolorgray;
+      font-weight: $bold;
+      font-size: $textMd;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+    h3 {
+      color: $fontcolorgray;
+      font-weight: $light;
+      font-size: $textSm + 0.2;
+    }
+  }
+}
+
+/*Estilos para el Modal de contactos*/
+
+.ModalContacts {
+  width: 100%;
+  height: 100vh;
+  background: rgba($color: $gris, $alpha: 0.9);
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+  &__Actions {
+    display: flex;
+    justify-content: space-between;
+    figure {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      cursor: pointer;
+    }
+  }
+
+  &__CardContact {
+    width: 300px;
+    height: 450px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: $blanco;
+    border-radius: 5px;
+
+    .inputFilterContact {
+      height: 40px;
+      border: 2px solid $fontcolorChatGray;
+      border-radius: 5px;
+      padding-left: 30px;
+      color: $fontcolorChatGray;
+      font-weight: $bold;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  #SecContacts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-y: scroll;
+    cursor: pointer;
+  }
+  #SecContacts::-webkit-scrollbar {
+    width: 5px;
+    background-color: $blanco;
+  }
+  #SecContacts::-webkit-scrollbar-thumb {
+    background-color: $fontcolorChatGray;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
+
+  &__contactInfo {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    min-height: 65px;
+    gap: 10px;
+    border-bottom: 1px solid $fontcolorChatGray;
+    padding-bottom: 10px;
+    figure {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+    }
+    div {
+      h3 {
+        font-weight: $bold;
+        font-size: $textMd;
+      }
+    }
+  }
+
+  &__AddContact {
+    width: 320px;
+    height: 300px;
+    background-color: $blanco;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    figure {
+      display: flex;
+      margin: 5px 0;
+      align-self: flex-start;
+      padding-left: 5%;
+      cursor: pointer;
+    }
+
+    form {
+      width: inherit;
+      padding: 5px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      label {
+        color: $fontcolorChatGray;
+        font-size: $textMd;
+        font-weight: $light;
+      }
+      #lblErrorForm {
+        font-size: $textSm;
+        color: $redError;
+        font-weight: $bold;
+      }
+      input {
+        height: 35px;
+        border-radius: 5px;
+        border: 2px solid $fontcolorChatGray;
+        padding: 8px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .btnsaveContact {
+        background-color: $verde;
+        font-family: $fontMain;
+        font-weight: $bold;
+        letter-spacing: 2px;
+        color: $blanco;
+        border: none;
+        transition: 0.5s;
+        margin-top: 5px;
+        &:hover {
+          background-color: $blanco;
+          color: $fontColorblack;
+          transition: 0.5s;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .ModalContacts {
+    &__CardContact {
+      width: 500px;
+    }
+    &__AddContact {
+      width: 400px;
+      height: 320px;
+    }
+  }
+}

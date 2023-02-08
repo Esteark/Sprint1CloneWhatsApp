@@ -1,0 +1,583 @@
+/*Comienzan estilos para la sección principal*/
+
+.SecMain_InfoChats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100vh;
+  border: 1px solid $gris;
+}
+
+#secMessages::-webkit-scrollbar {
+  width: 2px;
+  background-color: $gris;
+}
+#secMessages::-webkit-scrollbar-thumb {
+  background-color: $fontcolorChatGray;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.SecMain__SecMessages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: $blanco;
+
+  .SecMain__InfoUser {
+    display: flex;
+    height: 70px;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: $gris;
+
+    .SecMain__secUser figure {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+      }
+    }
+
+    .SecMain__SecIcons {
+      display: flex;
+      gap: 15px;
+
+      figure {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.SecMain__filter,
+.SecMain__filterSummary {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background-color: $grisClaro;
+  padding: 20px;
+  img {
+    position: absolute;
+    padding: 6px 10px;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid $blanco;
+    padding-left: 40px;
+    background-color: #fff;
+    font-size: $textSm + 0.2;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+#secMessages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  // height: 560px;
+
+  .CardMessage {
+    width: 100%;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 15px;
+    border: 3px solid $gris;
+    cursor: pointer;
+    figure {
+      width: 50px;
+      height: 50px;
+      border-radius: 60px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+    }
+
+    .SecMain_Chat {
+      flex-grow: 1;
+      .infoDateChat {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 10px;
+        h3 {
+          font-size: $textMd + 0.1;
+        }
+        h4 {
+          color: $fontcolorChatGray;
+          font-weight: $light;
+        }
+      }
+      div {
+        margin-top: 5px;
+        display: flex;
+        gap: 5px;
+      }
+    }
+  }
+}
+
+.infoCheckMessage {
+  .checkMessage {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+  }
+}
+
+.SecMain_Message {
+  flex-grow: 1;
+  height: 100vh;
+
+  .SecMain__SinInfoChat {
+    article {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10%;
+      figure {
+        width: 350px;
+        height: 180px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      h2 {
+        font-weight: $light;
+        font-size: $textMd + 0.8;
+        color: $fontcolorgray;
+        margin: 20px 0;
+      }
+      p {
+        text-align: center;
+        color: $fontcolorgray;
+        padding: 0 1%;
+      }
+    }
+  }
+  .SecMain__ChatComplete {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .Infochat__InfoUser {
+      width: 100%;
+      padding: 8px 0;
+      padding-right: 20px;
+      padding-left: 20px;
+      background-color: $gris;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 1px solid $fontcolorChatGray;
+
+      .figure__icons {
+        width: 20px;
+        height: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          cursor: pointer;
+        }
+      }
+      .figure__imguserChat {
+        width: 45px;
+        height: 45px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50px;
+        }
+      }
+      .InfoChat__texts {
+        flex-grow: 1;
+        color: $fontColorblack;
+        h3 {
+          font-size: $textMd;
+        }
+        p {
+          margin-top: 2px;
+          font-size: $textSm + 0.01;
+        }
+      }
+    }
+
+    #Sec__Mensajes::-webkit-scrollbar {
+      width: 2px;
+      background-color: $gris;
+    }
+    #Sec__Mensajes::-webkit-scrollbar-thumb {
+      background-color: $fontcolorChatGray;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+
+    #Sec__Mensajes {
+      flex-grow: 1;
+      width: 100%;
+      height: 100%;
+      background: url(../sources/img/fondowhatsapp.png);
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 15px;
+      overflow-y: scroll;
+      .burbujaMensaje {
+        min-width: 300px;
+        min-height: 70px;
+        padding: 10px;
+        border-radius: 15px;
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .chatLeft {
+        align-self: flex-start;
+        background: $blancoBurbujaChat;
+      }
+
+      .chatRight {
+        align-self: flex-end;
+        text-align: right;
+        background-color: $verdeBurbujaChat;
+      }
+    }
+    .Sec__inputMessages {
+      display: flex;
+      width: 100%;
+      height: 70px;
+      align-items: center;
+      background-color: $gris;
+      border-left: 1px solid $fontcolorChatGray;
+      gap: 10px;
+      padding: 10px;
+
+      figure {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      input {
+        flex-grow: 1;
+        height: 30px;
+        border-radius: 10px;
+        padding: 10px;
+        color: $fontColorblack;
+        font-weight: $bold;
+        font-size: $textSm + 0.1;
+        border: 1px solid $fontcolorChatGray;
+        background-color: $blancoBurbujaChat;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+#SecConfig {
+  width: 100%;
+  height: 100vh;
+  background-color: $gris;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  .SecConfig__header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    background-color: $verde;
+    color: $blanco;
+    figure {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    h3 {
+      font-size: $textMd;
+    }
+  }
+  .SecConfig__Img {
+    margin-top: 20px;
+    figure {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .SecConfig__form {
+    width: 100%;
+    padding: 30px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      label {
+        font-weight: $light;
+        font-size: $textMd;
+        color: $fontcolorChatGray;
+      }
+      input {
+        height: 30px;
+        border-radius: 5px;
+        border: 2px solid $fontcolorChatGray;
+        color: $fontColorblack;
+        padding: 5px;
+        &:focus {
+          outline: none;
+        }
+      }
+      button {
+        background-color: $blanco;
+        border-radius: 5px;
+        border: 2px solid $fontcolorChatGray;
+        transition: 0.5s;
+        &:hover {
+          background-color: $gris;
+          transition: 0.5s;
+        }
+      }
+
+      .lblErrorFormRegister {
+        color: $redError;
+        font-size: $textSm;
+        font-weight: $bold;
+      }
+    }
+    button {
+      width: 100%;
+      height: 40px;
+      margin: 10px 0;
+      cursor: pointer;
+      background-color: $verde;
+      font-size: $textSm + 0.1;
+      letter-spacing: 1px;
+      border: none;
+      color: $blanco;
+      transition: 0.5s;
+      border-radius: 5px;
+      font-weight: $bold;
+      &:hover {
+        background-color: $grisClaro;
+        color: $fontColorblack;
+        transition: 0.5s;
+      }
+    }
+  }
+}
+/*Estilos para el modal de resumen de chats*/
+.SecSummary__Chats {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  z-index: 10;
+  .SecSummary__Card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: $gris;
+    .SecSummary__Header {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      figure {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      h3 {
+        font-size: $textMd;
+      }
+    }
+    #SecSummaryMessages {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      overflow-y: scroll;
+      flex-grow: 1;
+      padding: 15px;
+      .CardSumaryMessage {
+        min-height: 100px;
+
+        border-radius: 15px;
+        border-bottom: 1px solid $fontcolorChatGray;
+        padding: 13px;
+        padding-bottom: 15px;
+        h4 {
+          color: $fontcolorChatGray;
+          font-weight: $light;
+          margin-bottom: 5px;
+        }
+
+        div {
+          display: flex;
+          gap: 10px;
+        }
+      }
+      .chatSummaryLeft {
+        background-color: $blancoBurbujaChat;
+      }
+      .chatSummaryRight {
+        background-color: $verdeBurbujaChat;
+      }
+    }
+
+    #SecSummaryMessages::-webkit-scrollbar {
+      width: 2px;
+      background-color: $gris;
+    }
+    #SecSummaryMessages::-webkit-scrollbar-thumb {
+      background-color: $fontcolorChatGray;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .SecMain__SecMessages {
+    flex-direction: row;
+
+    .SecMain__ChatComplete {
+      .Infochat__InfoUser {
+        padding-left: 0;
+      }
+      .Sec__inputMessages {
+        height: 80px;
+
+        input {
+          height: 35px;
+        }
+      }
+    }
+  }
+  .SecMain_InfoChats {
+    width: 30%;
+  }
+  .SecMain_Message {
+    width: 70%;
+    .SecMain__ChatComplete {
+      .Infochat__InfoUser {
+        padding: 0 20px;
+      }
+    }
+  }
+
+  .SecMain__SinInfoChat {
+    article {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10%;
+      figure {
+        width: 350px;
+        height: 180px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      h2 {
+        font-weight: $light;
+        font-size: $textMd + 0.8;
+        color: $fontcolorgray;
+        margin: 20px 0;
+      }
+      p {
+        margin: 0 20%;
+      }
+    }
+  }
+
+  .SecConfig__Img {
+    margin-top: 20px;
+  }
+  #imgBackSecMessages {
+    display: none;
+  }
+
+  .SecSummary__Chats {
+    justify-content: end;
+    .SecSummary__Card {
+      width: 30%;
+    }
+  }
+}

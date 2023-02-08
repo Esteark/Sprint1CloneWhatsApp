@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="sources/img/icon.ico" />
+    <link rel="stylesheet" href="css/main.css" />
+    <!-- Comienza script de axios  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- termina script de axios  -->
+    <!-- Comienzan estilos y script para toastify js -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <!-- Terminan estilos y script para toastify js -->
+    <!-- Comienzan estilos para Sweet Alert -->
+    <!-- Comienza script para luxon  -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.2.1/build/global/luxon.min.js"></script>
+    <!-- termina script para luxon  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+    <!-- Terminan estilos para Sweet Alert  -->
+    <!-- Comienzan estilos para animate.css  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>WhatsApp</title>
+  </head>
+  <body>
+    <!-- Seccion de modales o preloaders  -->
+
+    <section class="loader animate__animated hidden">
+      <article class="loader__article">
+        <figure class="loader__figure">
+          <img
+            src="./sources/img/loader.png"
+            class="loader__img animate__animated animate__bounce animate__slow"
+            alt=""
+          />
+        </figure>
+        <h2>WhatsApp</h2>
+        <h3 class="loader__h3">🔒 Cifrado de extremo a extremo</h3>
+      </article>
+    </section>
+
+    <!-- Modal para agregar contactos -->
+    <section class="ModalContacts animate__animated hidden">
+      <article class="ModalContacts__CardContact animate__animated">
+        <section class="ModalContacts__Actions">
+          <figure id="btnAddContact">
+            <img src="./sources/img/addContact.png" alt="" />
+          </figure>
+          <figure id="btnCloseModalContact">
+            <img src="./sources/img/x.svg" alt="" />
+          </figure>
+        </section>
+        <input
+          type="text"
+          placeholder="Filtra por nombre del contacto"
+          class="inputFilterContact"
+        />
+        <section id="SecContacts">
+          <article class="ModalContacts__contactInfo">
+            <figure>
+              <img
+                src="https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg"
+                alt=""
+              />
+            </figure>
+            <div>
+              <h3>Nom concat</h3>
+              <p>Celular</p>
+            </div>
+          </article>
+        </section>
+      </article>
+      <article class="ModalContacts__AddContact animate__animated hidden">
+        <figure id="btnBackModalContact">
+          <img src="./sources/img/arrow-left.svg" alt="" />
+          <figcaption><p>Regresar</p></figcaption>
+        </figure>
+        <form id="formAddcontact">
+          <label for="">Ingresa el nombre del contacto</label>
+          <input
+            type="text"
+            placeholder="Ingrese el nombre del contacto"
+            id="txtContactCel"
+          />
+          <label for="">Ingresa su celular</label>
+          <input type="number" placeholder="328492330" id="txtCel" />
+          <label id="lblErrorForm" class="hidden"
+            >El numero o el contacto ya se encuentran registrados</label
+          >
+          <input type="submit" value="Guardar" class="btnsaveContact" />
+        </form>
+      </article>
+    </section>
+
+    <!-- Termina modal para agregar contactos -->
+
+    <!-- Comienza modal para ver el detalle de los contactos  -->
+    <section class="SecSummary__Chats hidden animate__animated">
+      <article class="SecSummary__Card">
+        <section class="SecSummary__Header">
+          <figure id="btnHideModalSummary">
+            <img src="./sources/img/arrow-left.svg" alt="" />
+          </figure>
+          <h3 id="h3ConversationWith">Mensajes con</h3>
+        </section>
+        <section class="SecMain__filterSummary animate__animated">
+          <img src="./sources/img/search.svg" alt="" />
+          <input
+            type="text"
+            placeholder="Busca un chat"
+            id="txtfilterModalSummary"
+          />
+        </section>
+        <section id="SecSummaryMessages"></section>
+      </article>
+    </section>
+    <!-- Termina modal para ver el detalle de los contactos  -->
+
+    <!-- Termina Seccion de modales o preloaders  -->
+
+    <!-- Seccion login  -->
+    <section class="SecLogin">
+      <!-- Seccion del header con el logo  -->
+      <article class="SecLogin__article__header">
+        <div class="SecLogin__div">
+          <figure>
+            <img src="./sources/img/IconWhat.png" alt="" />
+          </figure>
+          <h3>WHATSAPP WEB</h3>
+        </div>
+      </article>
+      <!-- Termina Seccion del header con el logo  -->
+      <article class="SecLogin__article__form">
+        <form id="formLogin" class="animate__animated">
+          <label for="txtcel">Ingrese su número celular </label>
+          <input
+            type="number"
+            id="txtcel"
+            placeholder="3145896432"
+            class="inputLoginStyle"
+            autocomplete="mobile"
+          />
+          <label for="txtpass">Ingrese su contraseña</label>
+          <input
+            type="password"
+            placeholder="********"
+            class="inputLoginStyle"
+            id="txtpass"
+          />
+          <button type="submit" class="stylesBtn">Ingresar</button>
+          <label class="lblErrorFormLogin hidden">Error</label>
+        </form>
+
+        <div
+          class="SecLogin__article__div"
+          id="SecTutorialLogin"
+          class="animate__animated"
+        >
+          <h2>Tutorial</h2>
+          <h3 id="clickRegister">
+            ¿No tienes aún una cuenta? has clic para crearla
+          </h3>
+          <figure>
+            <img src="./sources/img/video.webp" alt="" />
+          </figure>
+        </div>
+
+        <form id="formRegister" class="hidden">
+          <label for="txtcel">Ingrese su nombre de usuario </label>
+          <input
+            type="text"
+            id="txtnomregister"
+            placeholder="Lucia"
+            class="inputLoginStyle"
+            autocomplete="name"
+          />
+          <label for="txtcel">Ingrese su número celular </label>
+          <input
+            type="number"
+            id="txtcelregister"
+            placeholder="3145896432"
+            class="inputLoginStyle"
+            autocomplete="mobile"
+          />
+          <label for="txtpass">Ingrese su contraseña</label>
+          <input
+            type="password"
+            placeholder="********"
+            class="inputLoginStyle"
+            id="txtpassregister"
+          />
+          <label for="txtpass">Ingrese nuevamente la contraseña</label>
+          <input
+            type="password"
+            placeholder="********"
+            class="inputLoginStyle"
+            id="txtpassconfirm"
+          />
+          <label class="lblErrorFormRegister hidden">Error</label>
+          <button type="submit" class="stylesBtn">Registrarse</button>
+        </form>
+
+        <div class="SecLogin__article__div hidden" id="SecActionBackLogion">
+          <h3 id="clickBackLogin">Regresar</h3>
+        </div>
+      </article>
+    </section>
+
+    <!-- Termina seccion login  -->
+
+    <!-- Comienza seccion principal  -->
+    <main class="SecMain animate__animated animate__delay-3s">
+      <section class="SecMain__SecMessages">
+        <article class="SecMain_InfoChats animate__animated">
+          <!-- Seccion de información e iconos usuario  -->
+          <section class="SecMain__InfoUser animate__animated">
+            <div class="SecMain__secUser">
+              <figure>
+                <img
+                  src="https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg"
+                  alt=""
+                  id="imgPhotoUser"
+                />
+              </figure>
+            </div>
+            <div class="SecMain__SecIcons">
+              <figure id="btnShowModalContact">
+                <img src="./sources/img/contacts.png" alt="" />
+              </figure>
+
+              <figure id="btnOpenConfig">
+                <img src="./sources/img/config.png" alt="" />
+              </figure>
+            </div>
+          </section>
+          <!-- Termina seccion de información usuarios e iconos  -->
+          <!-- comienza seccion para el filtro -->
+          <section class="SecMain__filter animate__animated">
+            <img src="./sources/img/search.svg" alt="" />
+            <input
+              type="text"
+              placeholder="Busca un chat"
+              id="txtfilterChatMessages"
+            />
+          </section>
+          <!-- Termina seccion para el filtro -->
+          <!-- Comienza seccion de mensajes  -->
+          <section id="secMessages" class="animate__animated">
+            <article class="CardMessage" data-idChat="">
+              <figure data-idChat="">
+                <img
+                  src="https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg"
+                  alt=""
+                  data-idChat=""
+                />
+              </figure>
+              <div class="SecMain_Chat" data-idChat="">
+                <div class="infoDateChat" data-idChat="">
+                  <h3 data-idChat="">Nombre</h3>
+                  <h4 data-idChat="">Fecha</h4>
+                </div>
+                <div data-idChat="" class="infoCheckMessage">
+                  <img
+                    src="./sources/img/check.svg"
+                    alt=""
+                    data-idChat=""
+                    class="checkMessage"
+                  />
+                  <p data-idChat="">Mensaje</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- <article class="CardMessage">
+              <figure>
+                <img
+                  src="https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg"
+                  alt=""
+                />
+              </figure>
+              <div class="SecMain_Chat">
+                <div class="infoDateChat">
+                  <h3>Sin mensajes</h3>
+                </div>
+                <div>
+                  <p>Clic en la imagen para iniciar un chat</p>
+                </div>
+              </div>
+            </article> -->
+          </section>
+          <!-- Termina seccion de mensajes  -->
+
+          <section id="SecConfig" class="animate__animated hidden">
+            <article class="SecConfig__header">
+              <figure id="btnCloseConfig">
+                <img src="./sources/img/arrowWhite.png" alt="" />
+                <figcaption><h3>Regresar</h3></figcaption>
+              </figure>
+            </article>
+            <article class="SecConfig__Img">
+              <figure>
+                <img
+                  src="./sources/img/userphoto.png"
+                  class="imgConfig"
+                  alt=""
+                />
+              </figure>
+            </article>
+            <article class="SecConfig__form">
+              <form id="formConfig">
+                <label for="">Nombre</label>
+                <input type="text" id="txtConfigNomUser" />
+                <label for="">Imagen de perfil</label>
+                <input type="text" id="txtimgConfig" />
+                <label for="">Descripción</label>
+                <input type="text" id="txtdesConfig" />
+                <label
+                  for=""
+                  class="lblErrorFormRegister hidden"
+                  id="lblErrorformConfig"
+                  >No dejes este campo vacío</label
+                >
+                <button type="submit">
+                  <img src="./sources/img/edit-2.svg" alt="" />
+                </button>
+              </form>
+              <button id="btnCloseSesion">Cerrar sesión</button>
+            </article>
+          </section>
+        </article>
+        <article class="SecMain_Message animate__animated">
+          <section class="SecMain__SinInfoChat">
+            <article>
+              <figure>
+                <img src="./sources/img/imgChat.png" alt="" />
+              </figure>
+              <h2>WhatsApp web</h2>
+              <p>
+                Envia y recibe mensajes sin necesidad de tener tu telefono
+                conectado Usa WhatsApp en hasta 4 dispositivos vinculados y 1
+                teléfono a la vez.
+              </p>
+            </article>
+          </section>
+          <section class="SecMain__ChatComplete hidden">
+            <article class="Infochat__InfoUser">
+              <figure class="figure__icons" id="imgBackSecMessages">
+                <img src="./sources/img/arrow-left.svg" alt="" />
+              </figure>
+              <figure class="figure__imguserChat">
+                <img
+                  src="https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg"
+                  alt=""
+                  id="imagenUserChat"
+                />
+              </figure>
+              <div class="InfoChat__texts">
+                <h3>Nom user</h3>
+                <p>ultima vez</p>
+              </div>
+              <figure class="figure__icons">
+                <img src="./sources/img/menu.png" alt="" id="btnMenuSummary" />
+              </figure>
+            </article>
+            <article id="Sec__Mensajes"></article>
+            <article class="Sec__inputMessages">
+              <figure>
+                <img src="./sources/img/smile.svg" alt="" />
+              </figure>
+              <figure>
+                <img src="./sources/img/paperclip.svg" alt="" />
+              </figure>
+              <input
+                type="text"
+                placeholder="Escribe un mensaje"
+                id="txtinputSendMessage"
+              />
+              <figure id="btnSendImg">
+                <img src="./sources/img/mic.svg" alt="" id="imgSendMessage" />
+              </figure>
+            </article>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <!-- termina seccion principal  -->
+
+    <script src="scripts/main.js" type="module"></script>
+  </body>
+</html>

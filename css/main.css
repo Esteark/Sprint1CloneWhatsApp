@@ -1,0 +1,987 @@
+@charset "UTF-8";
+/*Fuentes*/
+@font-face {
+  font-family: "Segoe UI";
+  src: url(../sources/fonts/SegoeUI.ttf);
+}
+@font-face {
+  font-family: "Segoe UI Bold";
+  src: url(../sources/fonts/SegoeUIBold.ttf);
+}
+/*formateo de estilos del navegador*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+/*Tamaño general del body*/
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f2f5;
+}
+
+/* Quitamos las felchas de arriba y abajo en los input number  */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/*Clase para ocultar elementos*/
+.hidden {
+  display: none !important;
+}
+
+/*Comienzan estilos para la pagina de inicio de sesion*/
+.SecLogin__article__header {
+  background-color: #00a884;
+  width: 100%;
+  height: 90px;
+  display: flex;
+}
+.SecLogin__article__header .SecLogin__div {
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.SecLogin__article__header .SecLogin__div figure {
+  width: 50px;
+  height: 50px;
+}
+.SecLogin__article__header .SecLogin__div figure img {
+  width: 100%;
+}
+.SecLogin__article__header .SecLogin__div h3 {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.SecLogin__article__form {
+  background-color: #ffffff;
+  padding-top: 10%;
+  min-height: 100vh;
+}
+.SecLogin__article__form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+.SecLogin__article__form form .inputLoginStyle {
+  height: 30px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border: 1px solid #3b4a54;
+  padding: 10px;
+}
+.SecLogin__article__form form .inputLoginStyle:focus {
+  outline: 1px solid black;
+}
+.SecLogin__article__form form .stylesBtn {
+  background-color: #00a884;
+  border: none;
+  height: 35px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  margin: 10px 0;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  text-transform: uppercase;
+}
+.SecLogin__article__form form .stylesBtn:hover {
+  background-color: #f0f2f5;
+  color: #3b4a54;
+  cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+.SecLogin__article__form form .lblErrorFormLogin,
+.SecLogin__article__form form .lblErrorFormRegister {
+  color: rgba(255, 112, 112, 0.968627451);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.SecLogin__article__form .SecLogin__article__div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+  padding: 0 20px;
+}
+.SecLogin__article__form .SecLogin__article__div h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #41525d;
+}
+.SecLogin__article__form .SecLogin__article__div h3 {
+  color: #00a884;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+.SecLogin__article__form .SecLogin__article__div h3:hover {
+  color: #41525d;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  cursor: pointer;
+}
+.SecLogin__article__form .SecLogin__article__div figure {
+  width: 100%;
+  height: 200px;
+}
+.SecLogin__article__form .SecLogin__article__div figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/*Comienzan Breakpoints para la pantalla de login vista desktop*/
+@media (min-width: 992px) {
+  .SecLogin__article__header {
+    background-color: #00a884;
+    width: 100%;
+    height: 220px;
+    padding: 0 14%;
+  }
+  .SecLogin__article__header .SecLogin__div {
+    justify-content: start;
+    padding: 20px;
+    gap: 10px;
+    margin-bottom: 50px;
+  }
+  .SecLogin__article__header .SecLogin__div figure {
+    width: 50px;
+    height: 50px;
+  }
+  .SecLogin__article__header .SecLogin__div figure img {
+    width: 100%;
+  }
+  .SecLogin__article__header .SecLogin__div h3 {
+    color: #ffffff;
+    font-size: 1rem;
+  }
+  .SecLogin__article__form {
+    background-color: #ffffff;
+    border-radius: 5px;
+    width: 70%;
+    min-height: 90vh;
+    transform: translateY(-93px);
+    -webkit-transform: translateY(-93px);
+    -moz-transform: translateY(-93px);
+    -ms-transform: translateY(-93px);
+    -o-transform: translateY(-93px);
+    margin: 0 auto;
+    gap: 20px;
+    -webkit-box-shadow: 0px 10px 23px -12px rgb(59, 74, 84);
+    -moz-box-shadow: 0px 10px 23px -12px rgb(59, 74, 84);
+    box-shadow: 0px 10px 23px -12px rgb(59, 74, 84);
+    padding-top: 0px;
+  }
+  .SecLogin__article__form form {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 0;
+    padding: 10% 30%;
+    padding-bottom: 5%;
+  }
+  .SecLogin__article__form form .inputLoginStyle {
+    height: 40px;
+  }
+  .SecLogin__article__form form .stylesBtn {
+    height: 40px;
+  }
+  .SecLogin__article__form .SecLogin__article__div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding: 0 30%;
+  }
+  .SecLogin__article__form .SecLogin__article__div h3 {
+    font-size: 1rem;
+  }
+  .SecLogin__article__form .SecLogin__article__div figure {
+    margin-bottom: 50px;
+  }
+}
+/*Estilos para los loaders*/
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader .loader__article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loader .loader__article .loader__figure {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+.loader .loader__article .loader__figure .loader__img {
+  width: 100%;
+}
+.loader .loader__article h2 {
+  color: #41525d;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.loader .loader__article h3 {
+  color: #41525d;
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+/*Estilos para el Modal de contactos*/
+.ModalContacts {
+  width: 100%;
+  height: 100vh;
+  background: rgba(240, 242, 245, 0.9);
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.ModalContacts__Actions {
+  display: flex;
+  justify-content: space-between;
+}
+.ModalContacts__Actions figure {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  cursor: pointer;
+}
+.ModalContacts__Actions figure img {
+  width: 100%;
+  height: 100%;
+}
+.ModalContacts__CardContact {
+  width: 300px;
+  height: 450px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+.ModalContacts__CardContact .inputFilterContact {
+  height: 40px;
+  border: 2px solid #b6b6b6;
+  border-radius: 5px;
+  padding-left: 30px;
+  color: #b6b6b6;
+  font-weight: 600;
+}
+.ModalContacts__CardContact .inputFilterContact:focus {
+  outline: none;
+}
+.ModalContacts #SecContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: scroll;
+  cursor: pointer;
+}
+.ModalContacts #SecContacts::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ffffff;
+}
+.ModalContacts #SecContacts::-webkit-scrollbar-thumb {
+  background-color: #b6b6b6;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.ModalContacts__contactInfo {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  min-height: 65px;
+  gap: 10px;
+  border-bottom: 1px solid #b6b6b6;
+  padding-bottom: 10px;
+}
+.ModalContacts__contactInfo figure {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+.ModalContacts__contactInfo figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+.ModalContacts__contactInfo div h3 {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.ModalContacts__AddContact {
+  width: 320px;
+  height: 300px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ModalContacts__AddContact figure {
+  display: flex;
+  margin: 5px 0;
+  align-self: flex-start;
+  padding-left: 5%;
+  cursor: pointer;
+}
+.ModalContacts__AddContact form {
+  width: inherit;
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ModalContacts__AddContact form label {
+  color: #b6b6b6;
+  font-size: 1rem;
+  font-weight: 300;
+}
+.ModalContacts__AddContact form #lblErrorForm {
+  font-size: 0.75rem;
+  color: rgba(255, 112, 112, 0.968627451);
+  font-weight: 600;
+}
+.ModalContacts__AddContact form input {
+  height: 35px;
+  border-radius: 5px;
+  border: 2px solid #b6b6b6;
+  padding: 8px;
+}
+.ModalContacts__AddContact form input:focus {
+  outline: none;
+}
+.ModalContacts__AddContact form .btnsaveContact {
+  background-color: #00a884;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+  border: none;
+  transition: 0.5s;
+  margin-top: 5px;
+}
+.ModalContacts__AddContact form .btnsaveContact:hover {
+  background-color: #ffffff;
+  color: #3b4a54;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .ModalContacts__CardContact {
+    width: 500px;
+  }
+  .ModalContacts__AddContact {
+    width: 400px;
+    height: 320px;
+  }
+}
+/*Comienzan estilos para la sección principal*/
+.SecMain_InfoChats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100vh;
+  border: 1px solid #f0f2f5;
+}
+
+#secMessages::-webkit-scrollbar {
+  width: 2px;
+  background-color: #f0f2f5;
+}
+
+#secMessages::-webkit-scrollbar-thumb {
+  background-color: #b6b6b6;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.SecMain__SecMessages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+}
+.SecMain__SecMessages .SecMain__InfoUser {
+  display: flex;
+  height: 70px;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #f0f2f5;
+}
+.SecMain__SecMessages .SecMain__InfoUser .SecMain__secUser figure {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+}
+.SecMain__SecMessages .SecMain__InfoUser .SecMain__secUser figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.SecMain__SecMessages .SecMain__InfoUser .SecMain__SecIcons {
+  display: flex;
+  gap: 15px;
+}
+.SecMain__SecMessages .SecMain__InfoUser .SecMain__SecIcons figure {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+.SecMain__SecMessages .SecMain__InfoUser .SecMain__SecIcons figure img {
+  width: 100%;
+  height: 100%;
+}
+
+.SecMain__filter,
+.SecMain__filterSummary {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+.SecMain__filter img,
+.SecMain__filterSummary img {
+  position: absolute;
+  padding: 6px 10px;
+}
+.SecMain__filter input,
+.SecMain__filterSummary input {
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  padding-left: 40px;
+  background-color: #fff;
+  font-size: 0.95rem;
+}
+.SecMain__filter input:focus,
+.SecMain__filterSummary input:focus {
+  outline: none;
+}
+
+#secMessages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+#secMessages .CardMessage {
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 15px;
+  border: 3px solid #f0f2f5;
+  cursor: pointer;
+}
+#secMessages .CardMessage figure {
+  width: 50px;
+  height: 50px;
+  border-radius: 60px;
+}
+#secMessages .CardMessage figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+#secMessages .CardMessage .SecMain_Chat {
+  flex-grow: 1;
+}
+#secMessages .CardMessage .SecMain_Chat .infoDateChat {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+#secMessages .CardMessage .SecMain_Chat .infoDateChat h3 {
+  font-size: 1.1rem;
+}
+#secMessages .CardMessage .SecMain_Chat .infoDateChat h4 {
+  color: #b6b6b6;
+  font-weight: 300;
+}
+#secMessages .CardMessage .SecMain_Chat div {
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.infoCheckMessage .checkMessage {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+.SecMain_Message {
+  flex-grow: 1;
+  height: 100vh;
+}
+.SecMain_Message .SecMain__SinInfoChat article {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10%;
+}
+.SecMain_Message .SecMain__SinInfoChat article figure {
+  width: 350px;
+  height: 180px;
+}
+.SecMain_Message .SecMain__SinInfoChat article figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.SecMain_Message .SecMain__SinInfoChat article h2 {
+  font-weight: 300;
+  font-size: 1.8rem;
+  color: #41525d;
+  margin: 20px 0;
+}
+.SecMain_Message .SecMain__SinInfoChat article p {
+  text-align: center;
+  color: #41525d;
+  padding: 0 1%;
+}
+.SecMain_Message .SecMain__ChatComplete {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser {
+  width: 100%;
+  padding: 8px 0;
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: #f0f2f5;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 1px solid #b6b6b6;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .figure__icons {
+  width: 20px;
+  height: 20px;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .figure__icons img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .figure__imguserChat {
+  width: 45px;
+  height: 45px;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .figure__imguserChat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50px;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .InfoChat__texts {
+  flex-grow: 1;
+  color: #3b4a54;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .InfoChat__texts h3 {
+  font-size: 1rem;
+}
+.SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser .InfoChat__texts p {
+  margin-top: 2px;
+  font-size: 0.76rem;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes::-webkit-scrollbar {
+  width: 2px;
+  background-color: #f0f2f5;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes::-webkit-scrollbar-thumb {
+  background-color: #b6b6b6;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  background: url(../sources/img/fondowhatsapp.png);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
+  overflow-y: scroll;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes .burbujaMensaje {
+  min-width: 300px;
+  min-height: 70px;
+  padding: 10px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes .chatLeft {
+  align-self: flex-start;
+  background: #fefefe;
+}
+.SecMain_Message .SecMain__ChatComplete #Sec__Mensajes .chatRight {
+  align-self: flex-end;
+  text-align: right;
+  background-color: #d9fdd3;
+}
+.SecMain_Message .SecMain__ChatComplete .Sec__inputMessages {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  background-color: #f0f2f5;
+  border-left: 1px solid #b6b6b6;
+  gap: 10px;
+  padding: 10px;
+}
+.SecMain_Message .SecMain__ChatComplete .Sec__inputMessages figure {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.SecMain_Message .SecMain__ChatComplete .Sec__inputMessages figure img {
+  width: 100%;
+  height: 100%;
+}
+.SecMain_Message .SecMain__ChatComplete .Sec__inputMessages input {
+  flex-grow: 1;
+  height: 30px;
+  border-radius: 10px;
+  padding: 10px;
+  color: #3b4a54;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid #b6b6b6;
+  background-color: #fefefe;
+}
+.SecMain_Message .SecMain__ChatComplete .Sec__inputMessages input:focus {
+  outline: none;
+}
+
+#SecConfig {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+#SecConfig .SecConfig__header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  background-color: #00a884;
+  color: #ffffff;
+}
+#SecConfig .SecConfig__header figure {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+#SecConfig .SecConfig__header figure img {
+  width: 100%;
+  height: 100%;
+}
+#SecConfig .SecConfig__header h3 {
+  font-size: 1rem;
+}
+#SecConfig .SecConfig__Img {
+  margin-top: 20px;
+}
+#SecConfig .SecConfig__Img figure {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+#SecConfig .SecConfig__Img figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+#SecConfig .SecConfig__form {
+  width: 100%;
+  padding: 30px;
+}
+#SecConfig .SecConfig__form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#SecConfig .SecConfig__form form label {
+  font-weight: 300;
+  font-size: 1rem;
+  color: #b6b6b6;
+}
+#SecConfig .SecConfig__form form input {
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid #b6b6b6;
+  color: #3b4a54;
+  padding: 5px;
+}
+#SecConfig .SecConfig__form form input:focus {
+  outline: none;
+}
+#SecConfig .SecConfig__form form button {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 2px solid #b6b6b6;
+  transition: 0.5s;
+}
+#SecConfig .SecConfig__form form button:hover {
+  background-color: #f0f2f5;
+  transition: 0.5s;
+}
+#SecConfig .SecConfig__form form .lblErrorFormRegister {
+  color: rgba(255, 112, 112, 0.968627451);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+#SecConfig .SecConfig__form button {
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+  cursor: pointer;
+  background-color: #00a884;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  border: none;
+  color: #ffffff;
+  transition: 0.5s;
+  border-radius: 5px;
+  font-weight: 600;
+}
+#SecConfig .SecConfig__form button:hover {
+  background-color: #f5f5f5;
+  color: #3b4a54;
+  transition: 0.5s;
+}
+
+/*Estilos para el modal de resumen de chats*/
+.SecSummary__Chats {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  z-index: 10;
+}
+.SecSummary__Chats .SecSummary__Card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f0f2f5;
+}
+.SecSummary__Chats .SecSummary__Card .SecSummary__Header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+.SecSummary__Chats .SecSummary__Card .SecSummary__Header figure {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.SecSummary__Chats .SecSummary__Card .SecSummary__Header figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.SecSummary__Chats .SecSummary__Card .SecSummary__Header h3 {
+  font-size: 1rem;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: 15px;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages .CardSumaryMessage {
+  min-height: 100px;
+  border-radius: 15px;
+  border-bottom: 1px solid #b6b6b6;
+  padding: 13px;
+  padding-bottom: 15px;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages .CardSumaryMessage h4 {
+  color: #b6b6b6;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages .CardSumaryMessage div {
+  display: flex;
+  gap: 10px;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages .chatSummaryLeft {
+  background-color: #fefefe;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages .chatSummaryRight {
+  background-color: #d9fdd3;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages::-webkit-scrollbar {
+  width: 2px;
+  background-color: #f0f2f5;
+}
+.SecSummary__Chats .SecSummary__Card #SecSummaryMessages::-webkit-scrollbar-thumb {
+  background-color: #b6b6b6;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+@media (min-width: 992px) {
+  .SecMain__SecMessages {
+    flex-direction: row;
+  }
+  .SecMain__SecMessages .SecMain__ChatComplete .Infochat__InfoUser {
+    padding-left: 0;
+  }
+  .SecMain__SecMessages .SecMain__ChatComplete .Sec__inputMessages {
+    height: 80px;
+  }
+  .SecMain__SecMessages .SecMain__ChatComplete .Sec__inputMessages input {
+    height: 35px;
+  }
+  .SecMain_InfoChats {
+    width: 30%;
+  }
+  .SecMain_Message {
+    width: 70%;
+  }
+  .SecMain_Message .SecMain__ChatComplete .Infochat__InfoUser {
+    padding: 0 20px;
+  }
+  .SecMain__SinInfoChat article {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+  }
+  .SecMain__SinInfoChat article figure {
+    width: 350px;
+    height: 180px;
+  }
+  .SecMain__SinInfoChat article figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .SecMain__SinInfoChat article h2 {
+    font-weight: 300;
+    font-size: 1.8rem;
+    color: #41525d;
+    margin: 20px 0;
+  }
+  .SecMain__SinInfoChat article p {
+    margin: 0 20%;
+  }
+  .SecConfig__Img {
+    margin-top: 20px;
+  }
+  #imgBackSecMessages {
+    display: none;
+  }
+  .SecSummary__Chats {
+    justify-content: end;
+  }
+  .SecSummary__Chats .SecSummary__Card {
+    width: 30%;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

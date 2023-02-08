@@ -1,0 +1,234 @@
+/*Comienzan estilos para la pagina de inicio de sesion*/
+
+.SecLogin__article__header {
+  background-color: $verde;
+  width: 100%;
+  height: 90px;
+  display: flex;
+
+  .SecLogin__div {
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    figure {
+      width: 50px;
+      height: 50px;
+      img {
+        width: 100%;
+      }
+    }
+    h3 {
+      color: $blanco;
+      font-size: $textMd;
+    }
+  }
+}
+
+.SecLogin__article__form {
+  background-color: $blanco;
+  padding-top: 10%;
+  min-height: 100vh;
+
+  //Estilos para el form
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 20px;
+    .inputLoginStyle {
+      height: 30px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border: 1px solid $fontColorblack;
+      padding: 10px;
+      &:focus {
+        outline: 1px solid black;
+      }
+    }
+    //Estilos para el botón
+    .stylesBtn {
+      background-color: $verde;
+      border: none;
+      height: 35px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      margin: 10px 0;
+      color: $blanco;
+      font-weight: $bold;
+      font-size: $textSm;
+      letter-spacing: 2px;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+      -moz-transition: 0.5s;
+      -ms-transition: 0.5s;
+      -o-transition: 0.5s;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: $gris;
+        color: $fontColorblack;
+        cursor: pointer;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+      }
+    }
+    .lblErrorFormLogin,
+    .lblErrorFormRegister {
+      color: $redError;
+      font-size: $textSm;
+      font-weight: $bold;
+    }
+  }
+  //Estilos para la sección tutorial
+  .SecLogin__article__div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 0 20px;
+    h2 {
+      font-size: $textLg;
+      font-weight: $light;
+      color: $fontcolorgray;
+    }
+    h3 {
+      color: $verde;
+      font-size: $textSm;
+      font-weight: $bold;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+      -moz-transition: 0.5s;
+      -ms-transition: 0.5s;
+      -o-transition: 0.5s;
+      &:hover {
+        color: $fontcolorgray;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+        cursor: pointer;
+      }
+    }
+    //Estilos para la figure
+    figure {
+      width: 100%;
+      height: 200px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+/*Comienzan Breakpoints para la pantalla de login vista desktop*/
+
+@media (min-width: 992px) {
+  .SecLogin__article__header {
+    background-color: $verde;
+    width: 100%;
+    height: 220px;
+    padding: 0 14%;
+    .SecLogin__div {
+      justify-content: start;
+      padding: 20px;
+      gap: 10px;
+      margin-bottom: 50px;
+      figure {
+        width: 50px;
+        height: 50px;
+        img {
+          width: 100%;
+        }
+      }
+      h3 {
+        color: $blanco;
+        font-size: $textMd;
+      }
+    }
+  }
+
+  .SecLogin__article__form {
+    background-color: $blanco;
+    border-radius: 5px;
+    width: 70%;
+    min-height: 90vh;
+    transform: translateY(-93px);
+    -webkit-transform: translateY(-93px);
+    -moz-transform: translateY(-93px);
+    -ms-transform: translateY(-93px);
+    -o-transform: translateY(-93px);
+    margin: 0 auto;
+    gap: 20px;
+    -webkit-box-shadow: 0px 10px 23px -12px rgba(59, 74, 84, 1);
+    -moz-box-shadow: 0px 10px 23px -12px rgba(59, 74, 84, 1);
+    box-shadow: 0px 10px 23px -12px rgba(59, 74, 84, 1);
+    padding-top: 0px;
+
+    form {
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 0;
+      padding: 10% 30%;
+      padding-bottom: 5%;
+      .inputLoginStyle {
+        height: 40px;
+      }
+      .stylesBtn {
+        height: 40px;
+      }
+    }
+    //Estilos para la sección tutorial
+    .SecLogin__article__div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      padding: 0 30%;
+      h3 {
+        font-size: $textMd;
+      }
+      figure {
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+
+// @media (min-width: 1200px) {
+//   .SecLogin__article__form {
+//     height: 80vh;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     gap: 10px;
+
+//     .SecLogin__article__div {
+//       figure {
+//         width: 100%;
+//         height: 300px;
+//         img {
+//           object-fit: cover;
+//         }
+//       }
+//     }
+//   }
+// }

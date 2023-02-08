@@ -1,0 +1,27 @@
+/*Fuentes*/
+//Version light de la fuente
+@font-face {
+  font-family: "Segoe UI";
+  src: url(../sources/fonts/SegoeUI.ttf);
+}
+//Version bold de la fuente
+@font-face {
+  font-family: "Segoe UI Bold";
+  src: url(../sources/fonts/SegoeUIBold.ttf);
+}
+
+//Variables fuentes
+//Fuentes
+$fontMainBold: "Segoe UI Bold", sans-serif;
+$fontMain: "Segoe UI", sans-serif;
+
+//Tamaño para textos : font-size
+$textSm: 0.75rem;
+$textMd: 1rem;
+$textLg: 1.5rem;
+$textXl: 2rem;
+
+//Peso para los textos : font-weight
+$bold: 600;
+$regular: 400;
+$light: 300;
