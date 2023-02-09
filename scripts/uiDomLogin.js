@@ -2,7 +2,7 @@ import { showAnimation, HideElement, hideAnimation } from "./animations.js";
 import { eventsMainSec } from "./main.js";
 import { notifcationToastify, sweetModal } from "./notifications.js";
 import { getInfoUsers, LogSuccesUser } from "./services.js";
-import { closeSecChat, SecMain } from "./UiDomMainSec.js";
+import { ChargeMessages, closeSecChat, SecMain } from "./UiDomMainSec.js";
 import { camposValidate, passValidate } from "./validators.js";
 
 export let sesionUser;
@@ -102,6 +102,7 @@ export const eventFormLogin = () => {
         let login = await LogSuccesUser(iduser, { status: true });
         if (login >= 200 && login <= 299) {
           await eventsMainSec();
+          await ChargeMessages();
         } else {
           notifcationToastify("Hubo un error al intentar iniciar sesión");
         }

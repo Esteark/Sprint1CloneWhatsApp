@@ -14,6 +14,7 @@ import {
   ActionsContacts,
   OpenSesion,
   ChargeMessages,
+  messagesprueba,
 } from "./UiDomMainSec.js";
 
 //Eventos del formulario de login
@@ -21,13 +22,14 @@ eventFormLogin();
 newAccount();
 eventFormRegister();
 rechargeInfoLocal();
+
+messagesprueba();
 export const eventsMainSec = async () => {
   logsucces();
   OpenSesion();
   ActionsContacts();
   ActionsMessages();
   loadPhotoUser(sesionUser.url);
-  await ChargeMessages();
 };
 
 const verificaSesion = async () => {
@@ -38,7 +40,9 @@ const verificaSesion = async () => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   verificaSesion();
   MediaQueryMessage();
+  await eventsMainSec();
+  await ChargeMessages();
 });

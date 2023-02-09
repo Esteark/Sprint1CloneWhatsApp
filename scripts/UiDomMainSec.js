@@ -14,6 +14,7 @@ import {
   getContactsbyCel,
   getInfoUser,
   getMessages,
+  getMessagesCel,
   newConversation,
   newMessageChat,
   viewMessage,
@@ -83,9 +84,9 @@ const txtfilterModalSummary = document.getElementById("txtfilterModalSummary");
 const h3ConversationWith = document.getElementById("h3ConversationWith");
 
 export let arraycontacts;
-let arraymessages;
 let idMensaje;
 let nomUserChat;
+let arraymessages;
 
 export const loadPhotoUser = (urlimg) => {
   if (urlimg) {
@@ -115,14 +116,15 @@ export const ChargeMessages = async () => {
 };
 
 export const ObtainMessages = async () => {
-  let mensajesUser = await getMessages();
-  let arraymessages = mensajesUser.filter(
-    (user) =>
-      user.celContact1 === parseInt(sesionUser.cel) ||
-      user.celContact2 === parseInt(sesionUser.cel)
-  );
+  arraymessages = [];
+  console.log("hola entreee");
+  arraymessages = await getMessagesCel(sesionUser.cel);
   console.log(arraymessages);
   return arraymessages;
+};
+
+export const messagesprueba = async () => {
+  await getMessagesCel(sesionUser.cel);
 };
 
 const fillArrayChats = async (id) => {
@@ -347,16 +349,28 @@ export const ActionsMessages = () => {
     showAnimation(SecMain_InfoChats);
   });
 
-  txtfilterChatMessages.addEventListener("input", (e) => {
-    let array = arraymessages.filter(
-      (item) =>
-        item.nomContact1
-          .toLowerCase()
-          .startsWith(e.target.value.toLowerCase()) ||
-        item.nomContact2.toLowerCase().startsWith(e.target.value.toLowerCase())
-    );
-    setTimeout(() => {}, 200);
-    renderMessages(array);
+  txtfilterChatMessages.addEventListener("input", async (e) => {
+    if (e.target.value) {
+      let arrayfilter = [];
+      for (const item of arraymessages) {
+        if (
+          item.nomContact1
+            .toLowerCase()
+            .startsWith(e.target.value.toLowerCase()) ||
+          item.nomContact2
+            .toLowerCase()
+            .startsWith(e.target.value.toLowerCase())
+        ) {
+          arrayfilter.push(item);
+        }
+      }
+      console.log(arrayfilter);
+      setTimeout(() => {
+        renderMessages(arrayfilter);
+      }, 500);
+    } else {
+      renderMessages(arraymessages);
+    }
   });
 
   const renderInfouserConfig = () => {
@@ -423,55 +437,58 @@ export const ActionsMessages = () => {
     }
   });
 
+  const actionsSecmessages = async (idMen, idchat) => {
+    idMensaje = parseInt(idMen);
+    let idChat = parseInt(idchat);
+    let message = await fillArrayChats(idMensaje);
+    let view = false;
+    for (const item of message) {
+      if (
+        item.id === idChat &&
+        item.sendBy !== parseInt(sesionUser.cel) &&
+        item.visto === false
+      ) {
+        item.visto = true;
+        view = true;
+      }
+    }
+    await actionsMessagesView(view, idChat);
+    renderburblesChats(message);
+  };
+
+  const actionsMessagesView = async (view, idChat) => {
+    console.log(view);
+    if (view == true) {
+      const viewmessage = {
+        visto: true,
+      };
+      let changeview = await viewMessage(idChat, viewmessage);
+      if (changeview >= 200 && changeview <= 299) {
+        console.log("SE VIO EL MENSAJE RE RENDERIZO EL CARRITO");
+        await ChargeMessages();
+      } else {
+        notifcationToastify(
+          "ocurrio un error al intentar procesar la solicitud"
+        );
+      }
+    }
+  };
+  const renderinfomessageClick = async (cel, nomUserChat) => {
+    let celInfouser = cel != sesionUser.cel ? cel : sesionUser.cel;
+    await renderInfoUserChat(celInfouser, nomUserChat);
+  };
+
   //Funcion para el click en los mensajes
   secMessages.addEventListener("click", async (e) => {
     idMensaje = e.target.getAttribute("data-idChat");
     let idChat = e.target.getAttribute("data-idMessage");
     nomUserChat = e.target.getAttribute("data-nameUser");
+    let celContact = e.target.getAttribute("data-cel");
 
     if (idMensaje && idChat) {
       showSecChat();
-      idMensaje = parseInt(idMensaje);
-      idChat = parseInt(idChat);
-
-      let message = await fillArrayChats(idMensaje);
-      console.log(message);
-      let view = false;
-      message.forEach((item) => {
-        if (item.id === idChat && item.sendBy != sesionUser.cel) {
-          item.visto = true;
-          view = true;
-        }
-      });
-      if (view) {
-        const viewmessage = {
-          visto: true,
-        };
-        let changeview = await viewMessage(idChat, viewmessage);
-        if (!(changeview >= 200 && changeview <= 299)) {
-          notifcationToastify(
-            "ocurrio un error al intentar procesar la solicitud"
-          );
-        }
-      }
-
-      setTimeout(async () => {
-        await ChargeMessages();
-      }, 1000);
-
-      renderburblesChats(message);
-
-      let arrayMensajes = await ObtainMessages();
-
-      let infoUserchat = arrayMensajes.filter((item) => item.id === idMensaje);
-
-      let celInfouser =
-        infoUserchat[0].celContact1 != sesionUser.cel
-          ? infoUserchat[0].celContact1
-          : infoUserchat[0].celContact2 != sesionUser.cel
-          ? infoUserchat[0].celContact2
-          : sesionUser.cel;
-      await renderInfoUserChat(celInfouser, nomUserChat);
+      await actionsSecmessages(idMensaje, idChat);
+      await renderinfomessageClick(celContact, nomUserChat);
     }
   });
   const VerificaInputSendMessage = (input) => {
@@ -492,14 +509,14 @@ export const ActionsMessages = () => {
       visto: false,
     };
     let response = await newMessageChat(newMessage);
-    if (!(response >= 200 && response <= 299)) {
-      notifcationToastify("El mensaje no pudo ser enviado");
-    } else {
+    if (response >= 200 && response <= 299) {
       txtinputSendMessage.value = "";
       VerificaInputSendMessage(txtinputSendMessage.value);
       await ChargeMessages();
       let arraymensajes = await fillArrayChats(idMensaje);
       renderburblesChats(arraymensajes);
+    } else {
+      notifcationToastify("El mensaje no pudo ser enviado");
     }
   };
 
@@ -602,20 +619,30 @@ const ObtainNameUserChat = (
       : sesionUser.nomUser;
   return nomUser;
 };
+const obtainCelUserChat = (celContact1, celContact2) => {
+  let celInfo =
+    celContact1 != sesionUser.cel
+      ? celContact1
+      : celContact2 != sesionUser.cel
+      ? celContact2
+      : sesionUser.cel;
+  return celInfo;
+};
 
 export const renderMessages = (array) => {
   secMessages.innerHTML = "";
 
   if (array.length != 0) {
     array.forEach(async (mensaje) => {
-      let celInfo =
-        mensaje.celContact1 != sesionUser.cel
-          ? mensaje.celContact1
-          : mensaje.celContact2 != sesionUser.cel
-          ? mensaje.celContact2
-          : sesionUser.cel;
+      let cel = obtainCelUserChat(mensaje.celContact1, mensaje.celContact2);
+      let nameInfo = ObtainNameUserChat(
+        mensaje.celContact1,
+        mensaje.celContact2,
+        mensaje.nomContact1,
+        mensaje.nomContact2
+      );
 
-      let UserInfo = await obtainInfoUserchat(celInfo);
+      let UserInfo = await obtainInfoUserchat(cel);
 
       let chats = await fillArrayChats(mensaje.id);
 
@@ -623,105 +650,54 @@ export const renderMessages = (array) => {
       secMessages.innerHTML += `
     <article class="CardMessage" data-idChat="${
       Message.IDMessage
-    }" data-idMessage="${Message.id}" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">
+    }" data-idMessage="${
+        Message.id
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">
               <figure data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">
                 <img
                   src="${UserInfo.url}"
                   alt=""
                   data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}"
+      }" data-nameUser="${nameInfo}" data-cel="${cel}"
                 />
               </figure>
               <div class="SecMain_Chat" data-idChat="${
                 Message.IDMessage
               }" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">
                 <div class="infoDateChat" data-idChat="${
                   Message.IDMessage
                 }" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">
                   <h3 data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}</h3>
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">${nameInfo}</h3>
                   <h4 data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">${Message.date}</h4>
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">${Message.date}</h4>
                 </div>
                 <div data-idChat="${
                   Message.IDMessage
                 }" class="infoCheckMessage" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">
                   <img src="${
                     Message.visto
                       ? "./sources/img/doubleCheck.png"
                       : "./sources/img/check.svg"
                   }" alt="" data-idChat="${
         Message.IDMessage
-      }" data-idMessage="${Message.id}" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}" class="checkMessage" />
+      }" data-idMessage="${
+        Message.id
+      }" data-nameUser="${nameInfo}" data-cel="${cel}" class="checkMessage" />
                   <p data-idChat="${Message.IDMessage}" data-idMessage="${
         Message.id
-      }" data-nameUser="${ObtainNameUserChat(
-        mensaje.celContact1,
-        mensaje.celContact2,
-        mensaje.nomContact1,
-        mensaje.nomContact2
-      )}">${Message.mensaje}</p>
+      }" data-nameUser="${nameInfo}" data-cel="${cel}">${Message.mensaje}</p>
                 </div>
               </div>
             </article>

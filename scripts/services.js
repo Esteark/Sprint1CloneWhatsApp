@@ -104,6 +104,15 @@ export const getMessages = async () => {
   }
 };
 
+export const getMessagesCel = async (cel) => {
+  let messages = [];
+  const response = await axios.get(`${URLMessages}?celContact1=${cel}`);
+  messages.push(...response.data);
+  const response2 = await axios.get(`${URLMessages}?celContact2=${cel}`);
+  messages.push(...response2.data);
+  return messages;
+};
+
 export const getMessage = async (id) => {
   try {
     const { data } = await axios.get(`${URLMessages}?id=${id}`);
@@ -137,7 +146,6 @@ export const newConversation = async (data) => {
 export const getChats = async (id) => {
   try {
     const { data } = await axios.get(`${URLChats}?idconversation=${id}`);
-
     return data;
   } catch (error) {
     notifcationToastify("Se ha producido un error: " + error);
