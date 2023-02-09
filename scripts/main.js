@@ -30,6 +30,7 @@ export const eventsMainSec = async () => {
   ActionsContacts();
   ActionsMessages();
   loadPhotoUser(sesionUser.url);
+  await ChargeMessages();
 };
 
 const verificaSesion = async () => {
@@ -43,6 +44,4 @@ const verificaSesion = async () => {
 document.addEventListener("DOMContentLoaded", async () => {
   verificaSesion();
   MediaQueryMessage();
-  await eventsMainSec();
-  await ChargeMessages();
 });

@@ -118,8 +118,12 @@ export const ChargeMessages = async () => {
 export const ObtainMessages = async () => {
   arraymessages = [];
   console.log("hola entreee");
-  arraymessages = await getMessagesCel(sesionUser.cel);
-  console.log(arraymessages);
+  let mensajes = await getMessages();
+  arraymessages = await mensajes.filter(
+    (user) =>
+      user.celContact1 === parseInt(sesionUser.cel) ||
+      user.celContact2 === parseInt(sesionUser.cel)
+  );
   return arraymessages;
 };
 
@@ -452,7 +456,7 @@ export const ActionsMessages = () => {
         view = true;
       }
     }
-    await actionsMessagesView(view, idChat);
+    // await actionsMessagesView(view, idChat);
     renderburblesChats(message);
   };
 
@@ -508,6 +512,7 @@ export const ActionsMessages = () => {
       mensajeBody: txtinputSendMessage.value,
       visto: false,
     };
+    console.log(newMessage);
     let response = await newMessageChat(newMessage);
     if (response >= 200 && response <= 299) {
       txtinputSendMessage.value = "";

@@ -102,7 +102,6 @@ export const eventFormLogin = () => {
         let login = await LogSuccesUser(iduser, { status: true });
         if (login >= 200 && login <= 299) {
           await eventsMainSec();
-          await ChargeMessages();
         } else {
           notifcationToastify("Hubo un error al intentar iniciar sesión");
         }
