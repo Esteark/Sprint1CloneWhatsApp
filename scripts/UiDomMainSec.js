@@ -526,22 +526,19 @@ export const ActionsMessages = () => {
     showModalSummary(SecSummary__Chats);
     let array = await fillArrayChats(idMensaje);
     h3ConversationWith.textContent = "Mensajes con " + nomUserChat;
-    setTimeout(() => {
-      renderSummaryChats(array);
-    }, 200);
+    renderSummaryChats(array);
   });
   btnHideModalSummary.addEventListener("click", () => {
     hideModalSummary(SecSummary__Chats);
   });
 
   txtfilterModalSummary.addEventListener("input", async (e) => {
-    let array = fillArrayChats(idMensaje);
-    let arrayfilter = array.filter((mensaje) =>
+    console.log(e.target.value);
+    let chats = await fillArrayChats(idMensaje);
+    let arrayfilter = chats.filter((mensaje) =>
       mensaje.mensajeBody.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setTimeout(() => {
-      renderSummaryChats(arrayfilter);
-    }, 100);
+    renderSummaryChats(arrayfilter);
   });
 };
 
