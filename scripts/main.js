@@ -40,8 +40,7 @@ const verificaSesion = async () => {
     closeSesion();
   }
 };
-
+verificaSesion();
 document.addEventListener("DOMContentLoaded", async () => {
-  verificaSesion();
   MediaQueryMessage();
 });
